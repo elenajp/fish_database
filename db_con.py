@@ -17,4 +17,15 @@ def db_connection():
     return False
 
 
+def insert_data():
+    cur = connection.cursor()
+    cur.execute("INSERT INTO sealife.sealife_data (name, description, image) values ('clown fish', 'I live in an anemone', psycopg2.Binary(image) )")
+
+    connection.commit()
+    cur.close()
+
+
+connection = db_connection()
+insert_data()
+
 db_connection()
