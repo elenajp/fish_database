@@ -5,8 +5,8 @@ image = open('/Users/elenaperez/Desktop/code/fish_images/clownfish.jpg', 'rb').r
 def db_connection():
     try:
         connection = psycopg2.connect(
-            host = 'localhost',
-            dbname = 'postgres',
+            host = '172.17.0.3',
+            dbname = 'fish_images',
             user = 'postgres',
             password = 'passwordd',
             port = '5432')
@@ -17,14 +17,4 @@ def db_connection():
     return False
 
 
-def insert_data():
-    cur = connection.cursor()
-    cur.execute("INSERT INTO sealife.sealife_data (name, description, image) values ('clown fish', 'I live in an anemone', psycopg2.Binary(image) )")
-
-    connection.commit()
-    cur.close()
-
-
-connection = db_connection()
 db_connection()
-insert_data()
