@@ -4,18 +4,7 @@ import os
 import env_file
 import psycopg2
 
-# from config import config
 env_file.load('.env')
-
-
-def image_to_base64():
-    global image_string
-    with open("/Users/elenaperez/Desktop/code/fish_images/clownfish.jpg", "rb") as img_file:
-        image_string = base64.b64encode(img_file.read())
-    return image_string
-
-
-image_to_base64()
 
 
 def db_connection():
@@ -36,19 +25,21 @@ def db_connection():
 
 
 def insert_data():
+    with open("/Users/elenaperez/Desktop/code/fish_images/clownfish.jpg", "rb") as img_file:
+        binary = img_file.read()
+
     cur = con.cursor()
     cur.execute(
-        "INSERT INTO sealife.sealife_data (name, description) VALUES (%s, %s, %s)",
-        ('clown fish', 'I live in an anemone', image_string))
+        "INSERT INTO sealife.sealife_data (name, description, image) VALUES (%s, %s, %s)",
+        ('clown fish', 'I live in an anemone', psycopg2.Binary(binary)))
 
     con.commit()
     cur.close()
+    return binary
 
 
-x = image_to_base64()
 con = db_connection()
 insert_data()
 con.close()
 
 db_connection()
-# psycopg2.Binary(image)
