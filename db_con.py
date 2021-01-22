@@ -6,6 +6,20 @@ import psycopg2
 
 env_file.load('.env')
 
+directory = '/Users/elenaperez/Desktop/code/fish_images/'
+image_list = []
+
+
+def images_to_list():
+    for filename in os.listdir(directory):
+        if filename.endswith(".jpg"):
+            image_list.append(filename)
+
+
+images_to_list()
+
+print(image_list)
+
 
 def db_connection():
     try:
