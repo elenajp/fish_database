@@ -16,11 +16,6 @@ def images_to_list():
             image_list.append(filename)
 
 
-images_to_list()
-
-print(image_list)
-
-
 def db_connection():
     try:
         con = psycopg2.connect(
@@ -52,6 +47,8 @@ def insert_data():
     return binary
 
 
+images_to_list()
+print(sorted(image_list))
 con = db_connection()
 insert_data()
 con.close()
